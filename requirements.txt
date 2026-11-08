@@ -1,6 +1,6 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
-streamlit>=1.50,<2
-plotly>=6,<7
+streamlit>=1.56,<2
+fastapi>=0.110,<1
 numpy>=1.26,<3
 pandas>=2.2,<3
 pydantic-settings>=2.2,<3

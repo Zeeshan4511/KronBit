@@ -4,7 +4,7 @@ KronBit is a Bitcoin research terminal. Explore Binance BTC/USDT daily candles, 
 
 ## Streamlit
 
-The Streamlit app serves Forecast, Market History, and Backtest Lab from one Python process. It reads the bundled market snapshot and calls the existing Kronos and evaluation services directly.
+The Streamlit app embeds the same React Forecast, Market History, and Backtest Lab interface as the standalone frontend. Streamlit handles requests in one Python process and uses the existing market, Kronos, and evaluation services.
 
 From the project root in PowerShell:
 
@@ -15,7 +15,9 @@ From the project root in PowerShell:
 
 Open [KronBit on Streamlit](http://localhost:8501). The first inference loads the model and tokenizer from Hugging Face. If both are already cached, set `$env:HF_HUB_OFFLINE = '1'` before starting the app.
 
-To deploy on [Streamlit Community Cloud](https://share.streamlit.io/), put the source on a GitHub branch you administer. Set the main file to `streamlit_app.py` and select Python 3.12 in Advanced settings. Keep `requirements.txt`, `.streamlit/config.toml`, `backend/app/`, `backend/Kronos/model/`, and `backend/data/raw/btcusdt_daily.csv` at the same paths on that branch. If the bundled Kronos source has its own Git metadata locally, include the actual model source files in the deployment repository. Backtests saved on the host can reset when the app is redeployed.
+To deploy on [Streamlit Community Cloud](https://share.streamlit.io/), select your GitHub branch, set the main file to `streamlit_app.py`, and choose Python 3.12 in Advanced settings. The checked-in `streamlit_assets/` directory includes the React build, so the Streamlit host only needs the Python dependencies. Backtests saved on the host can reset when the app is redeployed.
+
+After changing React code, run `npm ci` and `npm run build:streamlit` from `frontend/`, then commit the updated files in `streamlit_assets/` along with the source changes.
 
 ## Run locally
 

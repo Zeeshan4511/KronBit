@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Activity, ArrowUpRight, CandlestickChart, ChevronRight, Database, FlaskConical, Gauge, Menu, X } from 'lucide-react';
 import BacktestPage from './pages/BacktestPage';
 import { ForecastPage, MarketPage } from './pages/MarketPages';
-import { api, apiDocs } from './services/api';
+import { api, apiDocs, isStreamlit } from './services/api';
 import { useRequest } from './services/useRequest';
 
 const pages = {
@@ -44,7 +44,9 @@ function Sidebar({ route, open, close }) {
           <Database size={16} />
           <div><strong>BTC/USDT</strong><span>Daily market snapshot</span></div>
         </div>
-        <a className="docs-link" href={apiDocs} target="_blank" rel="noreferrer">API documentation <ArrowUpRight size={14} /></a>
+        <a className="docs-link" href={apiDocs} target="_blank" rel="noreferrer">
+          {isStreamlit ? 'Project documentation' : 'API documentation'} <ArrowUpRight size={14} />
+        </a>
       </div>
     </aside>
   </>;
@@ -66,7 +68,8 @@ export default function App() {
     const navigate = () => {
       setRoute(getRoute());
       setMenuOpen(false);
-      window.scrollTo(0, 0);
+      const scrollHost = isStreamlit ? document.querySelector('[data-testid="stMain"]') ?? window : window;
+      scrollHost.scrollTo(0, 0);
     };
     window.addEventListener('hashchange', navigate);
     return () => window.removeEventListener('hashchange', navigate);
