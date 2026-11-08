@@ -1,0 +1,7 @@
+search-path = [
+    ".",
+    "backend",
+    "backend/app",
+    "backend/Kronos"
+]
+
